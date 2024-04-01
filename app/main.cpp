@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <cstdint>
 #include <array>
 #include <bitset>
@@ -54,6 +53,7 @@ uint8_t errorCorrection(uint8_t data, uint8_t errors) {
     for (int i = 0; i < 8; i++) {
         if (errors == decodingMatrix[i]) {
             data ^= 1 << (7 - i);
+            return data;
         }
     }
 
@@ -136,7 +136,7 @@ int main(int argc, char* argv[]) {
             return 1;
         }
 
-        std::ofstream outputFile("encoded.txt", std::ios::binary);
+        std::ofstream outputFile("e_" + filename, std::ios::binary);
         if (!outputFile) {
             std::cerr << "Error while opening the output file\n";
             return 1;
@@ -161,7 +161,7 @@ int main(int argc, char* argv[]) {
             return 1;
         }
 
-        std::ofstream outputFile("decoded.txt", std::ios::binary);
+        std::ofstream outputFile("d_" + filename, std::ios::binary);
         if (!outputFile) {
             std::cerr << "Error while opening the output file\n";
             return 1;
